@@ -1,5 +1,5 @@
 import React from 'react';
-import { tada, zoomIn, zoomOutDown } from 'react-animations';
+import { tada, zoomIn, zoomOut } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import theme from '../theme';
 
@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.black.string()
   },
   welcome__zoom: {
-    animation: 'zoomOutDown 1s',
+    animation: 'zoomOut 2s',
     animationDelay: '4s',
-    animationName: zoomOutDown
+    animationName: zoomOut
   },
   welcome__content: {
     display: 'flex',
