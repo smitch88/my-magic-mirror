@@ -37,8 +37,7 @@ const createStyles = ({
     weather__text: Object.assign({}, {
       color: theme.colors.white.toString(),
       fontSize: 16,
-      fontWeight: 300,
-      marginTop: 10
+      fontWeight: 300
     }, weatherText),
     temperature: {
       display: 'flex',
