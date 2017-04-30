@@ -3,17 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import Clock from './clock/Clock';
 import Weather from './weather/Weather';
-
-class Calendar extends React.Component {
-
-  render() {
-    return (
-      <div>
-        Calendar
-      </div>
-    );
-  }
-}
+import Calendar from './calendar/Calendar';
 
 class NewsTicker extends React.Component {
 

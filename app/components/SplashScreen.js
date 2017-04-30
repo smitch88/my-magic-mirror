@@ -26,14 +26,15 @@ const styles = StyleSheet.create({
     animationName: flash
   },
   splash__image: {
-    width: 100,
-    height: 100
+    width: 200,
+    height: 200
   },
   splash__text: {
     marginTop: 20,
     color: theme.colors.gray.string(),
-    fontSize: '1.2em',
-    textTransform: 'uppercase'
+    fontSize: '2em',
+    textTransform: 'uppercase',
+    fontWeight: 300
   }
 });
 

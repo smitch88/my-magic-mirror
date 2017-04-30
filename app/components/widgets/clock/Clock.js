@@ -22,7 +22,7 @@ const createStyles = ({ container, time, date }) => (
     time: Object.assign({}, {
       fontSize: 96,
       color: theme.colors.white.toString(),
-      fontWeight: 400
+      fontWeight: 300
     }, time),
     date: Object.assign({}, {
       fontSize: 20,
@@ -62,6 +62,7 @@ class Clock extends React.Component {
   }
 
   componentDidMount() {
+    this.updateTimeTicker();
     this.timer = setInterval(this.updateTimeTicker, 1000);
   }
 

@@ -74,9 +74,9 @@ class Weather extends React.Component {
   static defaultProps = {
     apiKey: 'd52bf3e8ea19d8bb',
     locale: 'en',
-    city: 'Severn',
-    state: 'MD',
-    type: 'temp_f',
+    city: '',
+    state: '',
+    type: 'f',
     style: {}
   }
 
@@ -154,8 +154,10 @@ class Weather extends React.Component {
   }
 
   temperatureDisplay() {
-    const temp = _.get(this.state.data, this.props.type);
-    const type = this.props.type === 'temp_f' ? 'F' : 'C';
+    const isFarenheit = this.props.type === 'f';
+    const dataType = isFarenheit ? 'temp_f' : 'temp_c';
+    const temp = _.get(this.state.data, dataType);
+    const type = isFarenheit ? 'F' : 'C';
     return (
       temp ?
       `${temp} ${type}`
@@ -180,7 +182,6 @@ class Weather extends React.Component {
       weather__text
     } = createStyles(this.props.style);
     const { data, error } = this.state;
-    console.log(data);
     return (
       <div className={css(container)}>
         {

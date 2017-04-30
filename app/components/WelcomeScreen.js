@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   welcome__text: {
     marginTop: 20,
     color: theme.colors.gray.string(),
-    fontSize: '1.2em',
+    fontSize: '2em',
     textTransform: 'uppercase',
     animation: 'tada 3s',
     animationDelay: '1s',
