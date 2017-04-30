@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/scottmitchell/mm/my-magic-mirror/MyMagicMirror/android/app/build/intermediates/res/merged/debug/xml/preferences.xml",
+        "source": "/Users/scottmitchell/mm/my-magic-mirror/MyMagicMirror/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.43.4/res/xml/preferences.xml"
+    },
+    {
+        "merged": "/Users/scottmitchell/mm/my-magic-mirror/android/app/build/intermediates/res/merged/debug/xml/preferences.xml",
+        "source": "/Users/scottmitchell/mm/my-magic-mirror/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.42.3/res/xml/preferences.xml"
+    }
+]

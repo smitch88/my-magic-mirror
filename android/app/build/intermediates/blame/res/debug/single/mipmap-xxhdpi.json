@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/scottmitchell/mm/my-magic-mirror/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
+        "source": "/Users/scottmitchell/mm/my-magic-mirror/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/scottmitchell/mm/my-magic-mirror/MyMagicMirror/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
+        "source": "/Users/scottmitchell/mm/my-magic-mirror/MyMagicMirror/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    }
+]

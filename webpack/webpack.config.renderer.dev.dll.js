@@ -8,6 +8,9 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import { dependencies } from '../package.json';
 
+// Remove react-native to avoid dll issues
+delete dependencies['react-native'];
+
 const dist = path.resolve(process.cwd(), 'src/desktop/dll');
 
 export default merge.smart(baseConfig, {
@@ -154,7 +157,8 @@ export default merge.smart(baseConfig, {
 
   resolve: {
     modules: [
-      'src',
+      'src/common',
+      'src/desktop',
       'node_modules',
     ],
   },
@@ -196,7 +200,7 @@ export default merge.smart(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.resolve(process.cwd(), 'src'),
+        context: path.resolve(process.cwd(), 'src/desktop'),
         output: {
           path: path.resolve(process.cwd(), 'dll'),
         },
