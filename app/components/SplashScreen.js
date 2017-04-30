@@ -1,6 +1,7 @@
 import React from 'react';
 import { flash, fadeIn } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import PropTypes from 'prop-types';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -39,8 +40,8 @@ const styles = StyleSheet.create({
 class SplashScreen extends React.Component {
 
   static propTypes = {
-    image: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired
+    image: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -57,10 +58,15 @@ class SplashScreen extends React.Component {
   }
 
   render() {
+    const { splash, splash__content, splash__image } = styles;
     return (
-      <div className={css(styles.splash)}>
-        <div className={css(styles.splash__content)}>
-          <img className={css(styles.splash__image)} src={this.props.image} />
+      <div className={css(splash)}>
+        <div className={css(splash__content)}>
+          <img
+            role="presentation"
+            className={css(splash__image)}
+            src={this.props.image}
+          />
           <p className={css(styles.splash__text)}>{this.state.text}</p>
         </div>
       </div>

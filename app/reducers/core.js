@@ -3,7 +3,11 @@ import * as actions from '../actions/core';
 
 const State = Record({
   showingSplashScreen: false,
-  configuration: undefined
+  error: undefined,
+  configuration: Map({
+    welcomeMessage: 'Welcome!',
+    layout: []
+  })
 }, 'core');
 
 const core = (state = new State(), action) => {
@@ -13,10 +17,15 @@ const core = (state = new State(), action) => {
       return state.set('showingSplashScreen', action.showingSplashScreen);
 
     case actions.CORE_SET_CONFIGURATION:
-      return state.set('configuration', Map(action.configuration));
+      return state.set('error', undefined)
+                  .set('showingSplashScreen', false)
+                  .mergeDeepIn(['configuration'], action.configuration);
 
     case actions.CORE_SET_WIDGET_LAYOUT:
       return state.setIn(['configuration', 'widgetLayout'], action.widgetLayout);
+
+    case actions.CORE_ERROR:
+      return state.set('error', action.error);
 
     default:
       return state;

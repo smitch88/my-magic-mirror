@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tada, zoomIn, zoomOut } from 'react-animations';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import theme from '../theme';
@@ -40,8 +41,8 @@ const styles = StyleSheet.create({
 class WelcomeScreen extends React.Component {
 
   static propTypes = {
-    message: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element
+    message: PropTypes.string,
+    children: PropTypes.element
   };
 
   constructor(props) {

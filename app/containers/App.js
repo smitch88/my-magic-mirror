@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SplashScreen from '../components/SplashScreen';
 import WelcomeScreen from '../components/WelcomeScreen';
-import { fetchConfiguration, setSplashScreen } from '../actions/core';
+import { connectToServer } from '../actions/core';
 
 const styles = {
   app: {
@@ -14,32 +15,28 @@ const styles = {
 class App extends Component {
 
   static propTypes = {
-    onLoadConfiguration: React.PropTypes.func.isRequired,
-    onApplicationStart: React.PropTypes.func.isRequired,
-    onApplicationLoaded: React.PropTypes.func.isRequired,
-    showingSplashScreen: React.PropTypes.bool,
-    username: React.PropTypes.string,
-    children: React.PropTypes.element
+    onApplicationStart: PropTypes.func.isRequired,
+    showingSplashScreen: PropTypes.bool,
+    welcomeMessage: PropTypes.string,
+    children: PropTypes.element
   };
 
   componentDidMount() {
     this.props.onApplicationStart();
-    setTimeout(this.props.onLoadConfiguration, 2500);
-    setTimeout(this.props.onApplicationLoaded, 8000);
   }
 
   render() {
-    const { children, username, showingSplashScreen } = this.props;
+    const { children, showingSplashScreen, welcomeMessage } = this.props;
     return (
       <div style={styles.app}>
         {
           showingSplashScreen ?
             <SplashScreen
               image={require('../../img/mirror.svg')}
-              text="Connecting To Services"
+              text="Connecting to services"
             />
             :
-            <WelcomeScreen message={`Welcome, ${username}!`}>
+            <WelcomeScreen message={welcomeMessage}>
               { children }
             </WelcomeScreen>
         }
@@ -50,13 +47,11 @@ class App extends Component {
 
 const mapStateToProps = ({ core }) => ({
   showingSplashScreen: core.showingSplashScreen,
-  username: 'Scott Mitchell'
+  welcomeMessage: core.getIn(['configuration', 'welcomeMessage'])
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadConfiguration: () => dispatch(fetchConfiguration()),
-  onApplicationStart: () => dispatch(setSplashScreen(true)),
-  onApplicationLoaded: () => dispatch(setSplashScreen(false))
+  onApplicationStart: () => dispatch(connectToServer('smitchell'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

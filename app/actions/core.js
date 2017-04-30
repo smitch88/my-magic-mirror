@@ -1,6 +1,21 @@
+// Outgoing websocket actions
+export const WS_PING = 'WS_PING';
+export const WS_SUBSCRIBE_CONFIGURATION = 'WS_SUBSCRIBE_CONFIGURATION';
+
+export const pinger = (data) => ({
+  type: WS_PING,
+  data
+});
+
+export const subscribeUserConfiguration = (username) => ({
+  type: WS_SUBSCRIBE_CONFIGURATION,
+  username
+});
+
 export const CORE_SET_SPLASH_SCREEN = 'CORE_SET_SPLASH_SCREEN';
 export const CORE_SET_CONFIGURATION = 'CORE_SET_CONFIGURATION';
 export const CORE_SET_WIDGET_LAYOUT = 'CORE_SET_WIDGET_LAYOUT';
+export const CORE_ERROR = 'CORE_ERROR';
 
 export const setConfiguration = (configuration) => ({
   type: CORE_SET_CONFIGURATION,
@@ -17,20 +32,18 @@ export const setSplashScreen = (showingSplashScreen) => ({
   showingSplashScreen
 });
 
-export const fetchConfiguration = () => (dispatch, getState) => {
-  console.log('fetching configuration');
-  setTimeout(() => {
-    console.log('setting configuration');
-    dispatch(setConfiguration({
-      widgetLayout: [{
-        id: 'analog-clock-widget',
-        module: 'analog-clock',
-        h: 4,
-        w: 4,
-        x: 0,
-        y: 0,
-        static: true
-      }]
-    }));
-  }, 1000);
+export const disconnectedFromServer = () => (dispatch) => {
+  dispatch(setSplashScreen(true));
+};
+
+export const connectToServer = (username) => (dispatch, getState, { socket }) => {
+  // Set splash screen to display to user
+  dispatch(setSplashScreen(true));
+  // Connect to socket server and fetch a users profile
+  socket.on('connect', () => {
+    console.info('Client socket connected.');
+    // We give the illusion of connection happening eventhough this is pretty much instant
+    setTimeout(() => dispatch(subscribeUserConfiguration(username)), 5000);
+    socket.on('disconnect', () => dispatch(disconnectedFromServer()));
+  });
 };

@@ -5,7 +5,7 @@ import core from './core';
 
 const rootReducer = combineReducers({
   core,
-  router,
+  router
 });
 
 export default rootReducer;

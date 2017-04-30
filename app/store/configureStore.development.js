@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import createSocketIoMiddleware from 'redux-socket.io';
+import io from 'socket.io-client';
 import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -13,8 +15,12 @@ const configureStore = (initialState: ?counterStateType) => {
   const middleware = [];
   const enhancers = [];
 
+  // Socket middleware
+  const socket = io('http://localhost:3001');
+  middleware.push(createSocketIoMiddleware(socket, 'WS_'));
+
   // Thunk Middleware
-  middleware.push(thunk);
+  middleware.push(thunk.withExtraArgument({ socket }));
 
   // Logging Middleware
   const logger = createLogger({
