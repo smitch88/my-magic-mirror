@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import theme from '../../../theme';
-import request from '../../../request';
 import * as _ from 'lodash';
+import theme from '../../../theme';
+import request from '../../../../src/common/request';
 
 const createStyles = ({
   container,
@@ -32,7 +32,7 @@ const createStyles = ({
       flexDirection: 'column'
     },
     weather__image: Object.assign({}, {
-      width: 200
+      width: 175
     }, weatherImage),
     weather__text: Object.assign({}, {
       color: theme.colors.white.toString(),

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SplashScreen from '../components/SplashScreen';
 import WelcomeScreen from '../components/WelcomeScreen';
-import { connectToServer } from '../actions/core';
+import { connectToServer } from '../../src/common/actions/core';
 
 const styles = {
   app: {
@@ -32,7 +32,7 @@ class App extends Component {
         {
           showingSplashScreen ?
             <SplashScreen
-              image={require('../../img/mirror.svg')}
+              image={require('../../resources/img/mirror.svg')}
               text="Connecting to services"
             />
             :
