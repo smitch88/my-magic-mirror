@@ -1,42 +1,35 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import createSocketIoMiddleware from 'redux-socket.io';
-import io from 'socket.io-client';
 import thunk from 'redux-thunk';
-import { hashHistory } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import { routerMiddleware, push } from 'react-router-redux';
-import { createLogger } from 'redux-logger';
-import rootReducer from '../reducers';
+import io from 'socket.io-client';
+import createSocketIoMiddleware from 'redux-socket.io';
+import rootReducer from '../../common/reducers';
 
-const history = createBrowserHistory();
+// Ensure we are dealing with react native userAgent
+window.navigator.userAgent = 'ReactNative';
 
-const configureStore = (initialState: ?counterStateType) => {
+const configureStore = (initialState) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
 
   // Socket middleware
-  const socket = io('http://localhost:3001');
+  const socket = io('http://localhost:3001', {
+    transports: ['websocket'] // you need to explicitly tell it to use websockets
+  });
   middleware.push(createSocketIoMiddleware(socket, 'WS_'));
 
   // Thunk Middleware
   middleware.push(thunk.withExtraArgument({ socket }));
 
-  // Logging Middleware
-  const logger = createLogger({
-    level: 'info',
-    collapsed: true
-  });
-  middleware.push(logger);
-
+  /*
   // Router Middleware
   const router = routerMiddleware(hashHistory);
   middleware.push(router);
+  */
 
   // Redux DevTools Configuration
-  const actionCreators = {
-    push,
-  };
+  const actionCreators = {};
+
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -54,13 +47,7 @@ const configureStore = (initialState: ?counterStateType) => {
   // Create Store
   const store = createStore(rootReducer, initialState, enhancer);
 
-  if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
-    );
-  }
-
   return store;
 };
 
-export default { configureStore, history };
+export default configureStore;

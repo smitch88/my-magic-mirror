@@ -10,6 +10,7 @@ import { dependencies } from '../package.json';
 
 // Remove react-native to avoid dll issues
 delete dependencies['react-native'];
+delete dependencies['react-router-native'];
 
 const dist = path.resolve(process.cwd(), 'src/desktop/dll');
 

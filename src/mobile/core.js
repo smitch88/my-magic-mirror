@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import {
   AppRegistry,
   StyleSheet,
@@ -6,42 +7,130 @@ import {
   View
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+import { NativeRouter, Route, Link } from 'react-router-native';
+import configureStore from './store/configureStore';
+
+const store = configureStore();
+
+const Home = () => (
+  <Text style={styles.header}>
+    Home
+  </Text>
+);
+
+const About = () => (
+  <Text style={styles.header}>
+    About
+  </Text>
+);
+
+const Topic = ({ match }) => (
+  <Text style={styles.topic}>
+    {match.params.topicId}
+  </Text>
+);
+
+const Topics = ({ match }) => (
+  <View>
+    <Text style={styles.header}>Topics</Text>
+    <View>
+      <Link
+        to={`${match.url}/rendering`}
+        style={styles.subNavItem}
+        underlayColor="#f0f4f7"
+      >
+        <Text>Rendering with React</Text>
+      </Link>
+      <Link
+        to={`${match.url}/components`}
+        style={styles.subNavItem}
+        underlayColor="#f0f4f7"
+      >
+        <Text>Components</Text>
+      </Link>
+      <Link
+        to={`${match.url}/props-v-state`}
+        style={styles.subNavItem}
+        underlayColor="#f0f4f7"
+      >
+        <Text>Props v. State</Text>
+      </Link>
+    </View>
+
+    <Route path={`${match.url}/:topicId`} component={Topic} />
+    <Route
+      exact path={match.url} render={() => (
+        <Text style={styles.topic}>Please select a topic.</Text>
+    )}
+    />
+  </View>
+);
+
 
 export default class MyMagicMirror extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native! asdas
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Provider store={store}>
+        <NativeRouter>
+          <View style={styles.container}>
+            <View style={styles.nav}>
+              <Link
+                to="/"
+                underlayColor="#f0f4f7"
+                style={styles.navItem}
+              >
+                <Text>Home</Text>
+              </Link>
+              <Link
+                to="/about"
+                underlayColor="#f0f4f7"
+                style={styles.navItem}
+              >
+                <Text>About</Text>
+              </Link>
+              <Link
+                to="/topics"
+                underlayColor="#f0f4f7"
+                style={styles.navItem}
+              >
+                <Text>Topics</Text>
+              </Link>
+            </View>
+
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/topics" component={Topics} />
+          </View>
+        </NativeRouter>
+      </Provider>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 25,
+    padding: 10,
+  },
+  header: {
+    fontSize: 20,
+  },
+  nav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  navItem: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 10,
+  },
+  subNavItem: {
+    padding: 5,
+  },
+  topic: {
+    textAlign: 'center',
+    fontSize: 15,
+  }
+});
 
 AppRegistry.registerComponent('MyMagicMirror', () => MyMagicMirror);

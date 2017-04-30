@@ -2,12 +2,16 @@
 // It's trade-off for super simple React Native integration.
 // Browser babel configuration is in ./webpack.
 {
-  "presets": ["react-native"],
+  "retainLines": true,
+  "compact": true,
+  "comments": false,
+  "plugins": [],
+  "presets": ["react", "react-native"],
   "env": {
-    "production": {
       "plugins": [
-        "transform-react-constant-elements"
+        "transform-react-constant-elements",
+        "transform-react-inline-elements"
       ]
-    }
-  }
+  },
+  "sourceMaps": false,
 }
