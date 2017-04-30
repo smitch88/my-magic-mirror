@@ -1,0 +1,13 @@
+{
+  "name": "my-magic-mirror",
+  "productName": "my-magic-mirror",
+  "version": "0.0.1",
+  "author": {
+    "name": "Scott Mitchell",
+    "email": "scottymitch88@gmail.com",
+    "url": "https://github.com/smitch88"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}

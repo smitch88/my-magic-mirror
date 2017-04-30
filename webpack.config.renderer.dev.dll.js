@@ -8,7 +8,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import { dependencies } from './package.json';
 
-const dist = path.resolve(process.cwd(), 'dll');
+const dist = path.resolve(process.cwd(), 'src/desktop/dll');
 
 export default merge.smart(baseConfig, {
   context: process.cwd(),
@@ -154,7 +154,7 @@ export default merge.smart(baseConfig, {
 
   resolve: {
     modules: [
-      'app',
+      'src',
       'node_modules',
     ],
   },
@@ -196,7 +196,7 @@ export default merge.smart(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.resolve(process.cwd(), 'app'),
+        context: path.resolve(process.cwd(), 'src'),
         output: {
           path: path.resolve(process.cwd(), 'dll'),
         },

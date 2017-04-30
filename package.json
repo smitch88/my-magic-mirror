@@ -1,8 +1,6 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "0.11.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "my-magic-mirror",
+  "version": "0.0.1",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
@@ -11,17 +9,16 @@
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js e2e",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "lint-fix": "npm run lint -- --fix",
-    "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
     "hot-updates-server": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --progress --profile --colors",
     "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --progress --profile --colors",
-    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start": "cross-env NODE_ENV=production electron ./src/",
     "prestart": "npm run build",
     "flow": "flow",
     "flow-typed": "rm -rf flow-typed && flow-typed install --overwrite || true",
-    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
+    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./src/desktop/main.development",
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "dev": "cross-env START_HOT=1 npm run hot-updates-server",
     "package": "npm run build && build --publish never",
@@ -30,14 +27,13 @@
     "package-all": "npm run build && build -mwl",
     "cleanup": "mop -v"
   },
-  "browserslist": "electron 1.4",
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "mmm",
+    "appId": "org.develar.mmm",
     "files": [
       "dist/",
       "node_modules/",
-      "app.html",
+      "index.html",
       "main.js",
       "main.js.map",
       "package.json"
@@ -72,31 +68,6 @@
       "output": "release"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
-  },
-  "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
-  },
-  "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "redux",
-    "flow",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
-  ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
@@ -107,7 +78,7 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "app/node_modules"
+      "src/node_modules"
     ],
     "transform": {
       "^.+\\.js$": "babel-jest"

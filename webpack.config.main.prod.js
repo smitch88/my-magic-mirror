@@ -13,12 +13,12 @@ export default merge.smart(baseConfig, {
 
   target: 'electron-main',
 
-  entry: ['babel-polyfill', './app/main.development'],
+  entry: ['babel-polyfill', './src/desktop/main.development'],
 
   // 'main.js' in root
   output: {
     path: __dirname,
-    filename: './app/main.js'
+    filename: './src/desktop/main.js'
   },
 
   plugins: [

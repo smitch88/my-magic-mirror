@@ -15,10 +15,10 @@ export default merge.smart(baseConfig, {
 
   target: 'electron-renderer',
 
-  entry: ['babel-polyfill', './app/index'],
+  entry: ['babel-polyfill', './src/desktop/index'],
 
   output: {
-    path: path.join(__dirname, 'app/dist'),
+    path: path.join(__dirname, 'dist'),
     publicPath: '../dist/'
   },
 
