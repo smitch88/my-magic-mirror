@@ -4,21 +4,33 @@
 
 import path from 'path';
 import webpack from 'webpack';
-import { dependencies as externals } from './src/package.json';
 
 export default {
-  externals: Object.keys(externals || {}),
 
   module: {
     rules: [{
-      test: /\.jsx?$/,
+      test: /\.js$/,
+      loader: 'babel-loader',
       exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true
-        }
-      }
+      query: {
+        cacheDirectory: true,
+        presets: ['react', 'stage-0'],
+        plugins: ['add-module-exports', 'dynamic-import-webpack'],
+        env: {
+          production: {
+            presets: ['react-optimize'],
+            plugins: ['transform-runtime', 'babel-plugin-dev-expression']
+          },
+          development: {
+            plugins: [
+              'transform-decorators-legacy',
+              'transform-class-properties',
+              'transform-es2015-classes',
+              'react-hot-loader/babel'
+            ]
+          }
+        },
+      },
     }]
   },
 
