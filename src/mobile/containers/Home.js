@@ -86,7 +86,7 @@ class Home extends Component {
                       <Text style={{ fontSize: 24, marginTop: 15, textAlign: 'center' }}>
                         {`Background Color: ${color}`}
                       </Text>
-                      <View style={{ height: 400 }}>
+                      <View style={{ height: 300 }}>
                         <ColorPicker
                           color={color}
                           onColorChange={this.handleColorChange.bind(null, path)}

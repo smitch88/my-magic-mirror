@@ -5,16 +5,18 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import theme from '../../common/theme';
 
 const styles = StyleSheet.create({
-  welcome: {
+  container: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'inherit'
+  },
+  welcome__zoom: {
     height: '100%',
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: theme.colors.black.string()
-  },
-  welcome__zoom: {
     animation: 'zoomOut 2s',
     animationDelay: '4s',
     animationName: zoomOut
@@ -60,16 +62,18 @@ class WelcomeScreen extends React.Component {
 
   render() {
     return (
-      this.state.showingWelcome ?
-        <div className={css(styles.welcome)}>
-          <div className={css(styles.welcome__zoom)}>
-            <div className={css(styles.welcome__content)}>
-              <p className={css(styles.welcome__text)}>{ this.props.message }</p>
+      <div className={css(styles.container)}>
+        {
+          this.state.showingWelcome ?
+            <div className={css(styles.welcome__zoom)}>
+              <div className={css(styles.welcome__content)}>
+                <p className={css(styles.welcome__text)}>{ this.props.message }</p>
+              </div>
             </div>
-          </div>
-        </div>
-        :
-        this.props.children
+          :
+          this.props.children
+        }
+      </div>
     );
   }
 }

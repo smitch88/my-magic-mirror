@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   widget__item: {
     height: '100%',
     width: '100%',
-    backgroundColor: theme.colors.black.toString(),
+    backgroundColor: 'inherit',
     animation: 'fadeIn 2s',
     animationName: fadeIn
   },
