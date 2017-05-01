@@ -6,8 +6,8 @@ import * as _ from 'lodash';
 import ReactGridLayout from 'react-grid-layout';
 import PropTypes from 'prop-types';
 import { AutoSizer } from 'react-virtualized';
-import theme from '../theme';
-import Widget from '../components/widgets/Widget';
+import theme from '../../common/theme';
+import Widget from '../../common/widgets/Widget';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +45,7 @@ class Widgets extends React.Component {
   // Adds on identifier based on the items props
   generateLayout() {
     return _.map(this.props.configuration.layout, (value, key) => ({
-      i: `${key}-${JSON.stringify(value)}`,
+      i: key,
       ...value
     }));
   }
@@ -69,7 +69,7 @@ class Widgets extends React.Component {
                 cols={cols}
                 rowHeight={rowHeight}
                 verticalCompact={false}
-                width={width}
+                width={width - 20}
                 margin={[0, 0]}
                 containerPadding={[0, 0]}
               >

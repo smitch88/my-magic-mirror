@@ -4,28 +4,7 @@ import PropTypes from 'prop-types';
 import Clock from './clock/Clock';
 import Weather from './weather/Weather';
 import Calendar from './calendar/Calendar';
-
-class NewsTicker extends React.Component {
-
-  render() {
-    return (
-      <div>
-        NewsTicker
-      </div>
-    );
-  }
-}
-
-class ErrorWidget extends React.Component {
-
-  render() {
-    return (
-      <div>
-        Error Loading Widget
-      </div>
-    );
-  }
-}
+import NewsTicker from './newsTicker/NewsTicker';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,9 +34,9 @@ class Widget extends React.Component {
     const Component = this.widgets[this.props.type];
     return (
       <div className={css(styles.container)}>
-        {
-          !Component ? <ErrorWidget /> : <Component {...this.props.meta} />
-        }
+        <Component
+          {...this.props.meta}
+        />
       </div>
     );
   }

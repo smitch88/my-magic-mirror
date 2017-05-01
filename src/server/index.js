@@ -1,15 +1,6 @@
 const firebase = require('firebase');
-const express = require('express');
+const io = require('socket.io')(3001);
 
-const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server, { serveClient: false });
-
-const port = process.env.PORT || 3001;
-
-/*
-* Socket emitters that return to the listening client
-*/
 const socketHandlers = (socket) => {
   const errorHandler = (errorString) => {
     socket.emit('action', {
@@ -35,9 +26,7 @@ const socketHandlers = (socket) => {
   };
 };
 
-server.listen(port, () => {
-  console.info(`server listening on port ${port}`);
-
+const start = () => {
   // Establish firebase app connection
   firebase.initializeApp({
     apiKey: 'AIzaSyB5D7JbC0bapnWGWUejJKiwR_jF2qyCDJc',
@@ -54,6 +43,16 @@ server.listen(port, () => {
     const handlers = socketHandlers(socket);
     socket.on('action', (action) => {
       switch (action.type) {
+        case 'WS_WRITE_CONFIGURATION':
+          firebase.database().ref()
+            .update({
+              [`users/${action.username}/configuration/${action.path}`]: action.data
+            })
+            .catch(error => {
+              handlers.errorHandler(error.message);
+            });
+          return;
+
         case 'WS_SUBSCRIBE_CONFIGURATION':
           firebase.database().ref(`users/${action.username}/configuration`)
             .on('value', handlers.configurationHandler);
@@ -65,4 +64,6 @@ server.listen(port, () => {
       }
     });
   });
-});
+};
+
+start();

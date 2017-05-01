@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import 'react-infinite-calendar/styles.css';
 import Root from './containers/Root';
-import { configureStore, history } from './store/configureStore';
+import { configureStore, history } from '../common/store/configureStore';
 import './electron.global.css';
 
 const store = configureStore();

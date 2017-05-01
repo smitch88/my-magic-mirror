@@ -3,8 +3,8 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as _ from 'lodash';
-import theme from '../../../theme';
-import request from '../../../../common/request';
+import theme from '../../theme';
+import request from '../../request';
 
 const createStyles = ({
   container,
@@ -23,34 +23,41 @@ const createStyles = ({
       display: 'inline-flex',
       width: '100%',
       height: '100%',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      alignItems: 'center'
     },
     weather: {
       display: 'flex',
+      height: '100%',
+      width: '15vw',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column'
     },
     weather__image: Object.assign({}, {
-      width: 175
+      height: '15vw',
+      width: '15vw',
+      marginBottom: 5
     }, weatherImage),
     weather__text: Object.assign({}, {
       color: theme.colors.white.toString(),
-      fontSize: 16,
+      fontSize: '1.5vw',
       fontWeight: 300
     }, weatherText),
     temperature: {
       display: 'flex',
+      height: '100%',
+      width: 'calc(100% - 15vw)',
       alignItems: 'center',
       justifyContent: 'center',
-      flexDirection: 'column',
+      flexDirection: 'column'
     },
     temperature__text: Object.assign({}, {
-      fontSize: 54,
+      fontSize: '5.5vw',
       fontWeight: 300
     }, temperatureText),
     temperature__location: Object.assign({}, {
-      fontSize: 16,
+      fontSize: '2vw',
       fontWeight: 300
     }, temperatureLocation)
   })
@@ -83,7 +90,8 @@ class Weather extends React.Component {
     super(props);
     moment.locale(props.locale);
     this.timer = undefined;
-    this.interval = 60000;
+    // Every 30 minutes update weather
+    this.interval = 60000 * 30;
     this.state = {
       data: undefined,
       error: undefined
@@ -135,8 +143,8 @@ class Weather extends React.Component {
       `http://api.wunderground.com/api/${apiKey}/conditions/q/${state}/${city}.json`
     );
   }
+
   updateWeather() {
-    this.setState({ error: undefined });
     request(this.weatherRequestUrl())
       .then(this.handleResponse)
       .catch(this.handleFailure);
@@ -180,34 +188,28 @@ class Weather extends React.Component {
       weather__image,
       weather__text
     } = createStyles(this.props.style);
-    const { data, error } = this.state;
     return (
       <div className={css(container)}>
-        {
-          error ?
-            <span>There was an error loading the weather forecast</span>
-            :
-            <div className={css(conditions)}>
-              <div className={css(weather)}>
-                <img
-                  className={css(weather__image)}
-                  role="presentation"
-                  src={this.imageDisplay()}
-                />
-                <span className={css(weather__text)}>
-                  {this.weatherDisplay()}
-                </span>
-              </div>
-              <div className={css(temperature)}>
-                <div className={css(temperature__location)}>
-                  {this.temperatureLocation()}
-                </div>
-                <div className={css(temperature__text)}>
-                  {this.temperatureDisplay()}
-                </div>
-              </div>
+        <div className={css(conditions)}>
+          <div className={css(weather)}>
+            <img
+              className={css(weather__image)}
+              role="presentation"
+              src={this.imageDisplay()}
+            />
+            <span className={css(weather__text)}>
+              {this.weatherDisplay()}
+            </span>
+          </div>
+          <div className={css(temperature)}>
+            <div className={css(temperature__location)}>
+              {this.temperatureLocation()}
             </div>
-        }
+            <div className={css(temperature__text)}>
+              {this.temperatureDisplay()}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

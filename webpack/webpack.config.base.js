@@ -54,6 +54,6 @@ export default {
 
   plugins: [
     new webpack.IgnorePlugin(/vertx/),
-    new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin()
   ],
 };

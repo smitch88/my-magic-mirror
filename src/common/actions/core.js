@@ -1,6 +1,7 @@
 // Outgoing websocket actions
 export const WS_PING = 'WS_PING';
 export const WS_SUBSCRIBE_CONFIGURATION = 'WS_SUBSCRIBE_CONFIGURATION';
+export const WS_WRITE_CONFIGURATION = 'WS_WRITE_CONFIGURATION';
 
 export const pinger = (data) => ({
   type: WS_PING,
@@ -10,6 +11,13 @@ export const pinger = (data) => ({
 export const subscribeUserConfiguration = (username) => ({
   type: WS_SUBSCRIBE_CONFIGURATION,
   username
+});
+
+export const writeConfiguration = (username, path, data) => ({
+  type: WS_WRITE_CONFIGURATION,
+  username,
+  path,
+  data
 });
 
 export const CORE_SET_SPLASH_SCREEN = 'CORE_SET_SPLASH_SCREEN';

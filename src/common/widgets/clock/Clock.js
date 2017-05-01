@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import theme from '../../../theme';
+import theme from '../../theme';
 
 const createStyles = ({ container, time, date }) => (
   StyleSheet.create({
@@ -17,15 +17,15 @@ const createStyles = ({ container, time, date }) => (
       height: '100%',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
     },
     time: Object.assign({}, {
-      fontSize: 96,
+      fontSize: '9vw',
       color: theme.colors.white.toString(),
       fontWeight: 300
     }, time),
     date: Object.assign({}, {
-      fontSize: 20,
+      fontSize: '2vw',
       color: theme.colors.white.toString(),
       fontWeight: 300
     }, date)
