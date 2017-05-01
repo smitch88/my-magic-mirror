@@ -28,14 +28,7 @@ const socketHandlers = (socket) => {
 
 const start = () => {
   // Establish firebase app connection
-  firebase.initializeApp({
-    apiKey: 'AIzaSyB5D7JbC0bapnWGWUejJKiwR_jF2qyCDJc',
-    authDomain: 'my-magic-mirror-5d1e2.firebaseapp.com',
-    databaseURL: 'https://my-magic-mirror-5d1e2.firebaseio.com',
-    projectId: 'my-magic-mirror-5d1e2',
-    storageBucket: 'my-magic-mirror-5d1e2.appspot.com',
-    messagingSenderId: '862599948469'
-  });
+  firebase.initializeApp(require('../../env/firebase'));
 
   // Set up socket listener
   io.on('connection', (socket) => {
