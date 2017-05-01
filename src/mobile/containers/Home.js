@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { H2, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { fromHsv, ColorPicker } from 'react-native-color-picker';
 import {
   Button,
@@ -83,7 +83,9 @@ class Home extends Component {
                     heading={customization.label || _.capitalize(type)}
                   >
                     <Content>
-                      <H2>{`Background Color: ${color}`}</H2>
+                      <Text style={{ fontSize: 24, marginTop: 15, textAlign: 'center' }}>
+                        {`Background Color: ${color}`}
+                      </Text>
                       <View style={{ height: 400 }}>
                         <ColorPicker
                           color={color}
